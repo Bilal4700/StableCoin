@@ -171,15 +171,9 @@ contract DSCEngine is IDSCEngine, ReentrancyGuard {
      * @notice They must have more collateral than the amount of DSC being minted
      * @notice Follow CEI (Checks-Effects-Interactions)
      * @param amountDscToMint The amount of DSC to mint
-     * @param collateralToken The address of the collateral token being used
      * @dev User must have sufficient collateral to maintain health factor above threshold
      */
-    function mintDsc(uint256 amountDscToMint, address collateralToken)
-        external
-        override
-        moreThanZero(amountDscToMint)
-        nonReentrant
-    {
+    function mintDsc(uint256 amountDscToMint) external override moreThanZero(amountDscToMint) nonReentrant {
         s_DSCMinted[msg.sender] += amountDscToMint;
         _revertIfHealthFactorIsBroken(msg.sender);
         bool success = i_dsc.mint(msg.sender, amountDscToMint);
