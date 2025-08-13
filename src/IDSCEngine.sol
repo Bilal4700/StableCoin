@@ -1,10 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
+/**
+ * @title IDSCEngine Interface
+ * @author Muhammad Bilal
+ * @dev Interface for the DSC Engine that manages the decentralized stablecoin system
+ *
+ * This interface defines the core functions for:
+ * - Depositing and redeeming collateral
+ * - Minting and burning DSC tokens
+ * - Liquidating undercollateralized positions
+ * - Checking user health factors
+ */
 interface IDSCEngine {
     function depositCollateralForDsc() external;
 
+    function depositCollateral(address collateralToken, uint256 amountCollateral) external;
+
     function redeemCollateralForDsc() external;
+
+    function redeemCollateral() external;
+
+    function mintDsc(uint256 amount, address collateralToken) external;
 
     function burnDsc() external;
 
