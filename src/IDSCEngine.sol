@@ -13,19 +13,21 @@ pragma solidity ^0.8.18;
  * - Checking user health factors
  */
 interface IDSCEngine {
-    function depositCollateralForDsc() external;
+    function depositCollateralAndMintDsc(address collateralToken, uint256 amountCollateral, uint256 amountDscToMint)
+        external;
 
     function depositCollateral(address collateralToken, uint256 amountCollateral) external;
 
-    function redeemCollateralForDsc() external;
+    function redeemCollateralForDsc(address collateralToken, uint256 amountCollateral, uint256 amountDscToBurn)
+        external;
 
-    function redeemCollateral() external;
+    function redeemCollateral(address collateralToken, uint256 amountCollateral) external;
 
     function mintDsc(uint256 amountDscToMint) external;
 
-    function burnDsc() external;
+    function burnDsc(uint256 amount) external;
 
-    function liquidate() external;
+    function liquidate(address collateral, address user, uint256 debtToCover) external;
 
     function getHealthFactor(address user) external view returns (uint256);
 }
