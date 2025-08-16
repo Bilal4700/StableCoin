@@ -264,28 +264,4 @@ contract DSCEngineTest is Test {
         uint256 userBalance = dsc.balanceOf(user);
         assertEq(userBalance, 0);
     }
-
-    ///////////////////////////////////
-    //     redeemCollateral Tests    //
-    ///////////////////////////////////
-
-    function testRevertsIfTransferFails() public {}
-
-    function testRevertsIfRedeemAmountIsZero() public {}
-
-    function testCanRedeemCollateral() public depositCollateral {}
-
-    function testEmitCollateralRedeemedWithCorrectArgs() public depositCollateral {}
-
-    ///////////////////////////////////
-    // redeemCollateralForDsc Tests  //
-    ///////////////////////////////////
-
-    function testMustRedeemMoreThanZero() public depositedCollateralAndMintedDsc {}
-
-    function testCanRedeemDepositedCollateral() public {}
-
-    function testProperlyReportsHealthFactor() public depositedCollateralAndMintedDsc {}
-
-    function testHealthFactorCanGoBelowOne() public depositedCollateralAndMintedDsc {}
 }
