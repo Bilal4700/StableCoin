@@ -31,6 +31,7 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {AggregatorV3Interface} from
     "../lib/chainlink-brownie-contracts/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import {OracleLib} from "./OracleLib.sol";
 
 /*
  * @title DSCEngine
@@ -65,6 +66,12 @@ contract DSCEngine is IDSCEngine, ReentrancyGuard {
     error DSCEngine__MintFailed();
     error DSCEngine__HealthFactorIsOk(uint256 startingHealthFactor);
     error DSCEngine__HealthFactorNotImproved();
+
+    //////////////////////////
+    // Types                //
+    //////////////////////////
+
+    using OracleLib for AggregatorV3Interface;
 
     //////////////////////////
     // State Variables      //
@@ -322,7 +329,7 @@ contract DSCEngine is IDSCEngine, ReentrancyGuard {
      */
     function getTokenAmountFromUsd(address collateral, uint256 usdAmountInWei) public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeed[collateral]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.staleCheckLatestRoundData();
 
         // Convert to uint256 and scale by 1e18 for precision
         return (usdAmountInWei * PRECISION) / (uint256(price) * ADDITIONAL_FEED_PRECISION);
@@ -394,7 +401,7 @@ contract DSCEngine is IDSCEngine, ReentrancyGuard {
     function getTokenPriceInUsd(address token, uint256 amount) public view returns (uint256) {
         // Get the price of a token in USD
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeed[token]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.staleCheckLatestRoundData();
         if (price <= 0) {
             revert DSCEngine__NeedsMoreThanZero();
         }
