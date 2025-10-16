@@ -7,8 +7,8 @@ It’s designed to maintain a soft 1:1 peg to the US dollar — without relying 
 
 Think of it as a stripped-down, educational version of **DAI** — but with only ETH and BTC as collateral, and with the core mechanics of collateral, minting, burning, and liquidation fully transparent on-chain.
 
-> 🧪 **Network:** Sepolia Testnet (`11155111`)  
-> 🔗 **Contract Address:** [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xf0a847a7615fba0a0040cc0d7b41951213822f98)  
+> **Network:** Sepolia Testnet (`11155111`)  
+> **Contract Address:** [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xf0a847a7615fba0a0040cc0d7b41951213822f98)  
 
 
 ---
@@ -24,13 +24,13 @@ The result is **DSC**, a fully on-chain system where users deposit crypto as col
 
 ---
 
-## 🧠 How It Works (In Plain English)
+## How It Works (In Plain English)
 
-1. 💰 **Deposit Collateral:** Users lock up approved crypto (like WETH or WBTC) as collateral.  
-2. 🪙 **Mint DSC:** Based on how much collateral you have and the required overcollateralization ratio, you mint stablecoins pegged to the US dollar.  
-3. 🛡️ **Stay Healthy:** As long as your collateral value stays above the minimum threshold, your position is safe.  
-4. 🧹 **Liquidation Safety Net:** If your collateral drops too much, anyone can repay your debt and claim your collateral with a small bonus — keeping the system solvent.  
-5. 🔄 **Redeem Anytime:** Burn your DSC to get your collateral back.
+1. **Deposit Collateral:** Users lock up approved crypto (like WETH or WBTC) as collateral.  
+2. **Mint DSC:** Based on how much collateral you have and the required overcollateralization ratio, you mint stablecoins pegged to the US dollar.  
+3. **Stay Healthy:** As long as your collateral value stays above the minimum threshold, your position is safe.  
+4. **Liquidation Safety Net:** If your collateral drops too much, anyone can repay your debt and claim your collateral with a small bonus — keeping the system solvent.  
+5. **Redeem Anytime:** Burn your DSC to get your collateral back.
 
 It’s all automated. No admin keys. No manual intervention. Just code.
 
@@ -40,25 +40,20 @@ It’s all automated. No admin keys. No manual intervention. Just code.
 
 Here’s what’s happening behind the scenes:
 
-- 🏗️ **Smart Contracts:**  
+- **Smart Contracts:**  
   - `DSCEngine.sol` – The brains of the system (minting, burning, deposits, withdrawals, liquidations).  
   - `DecentralizedStableCoin.sol` – ERC-20 token logic for the DSC stablecoin.  
   - `OracleLib.sol` + Chainlink – Fetches real-time ETH/BTC prices and checks for stale data.
 
-- 📊 **Core Parameters:**  
+- **Core Parameters:**  
   - **Collateralization Threshold:** 200% (liquidation triggers below this).  
   - **Liquidation Bonus:** 10% reward to liquidators.  
   - **Precision:** All math done with `1e18` scaling for accuracy.  
   - **Health Factor:** Must always be ≥ `1.0` to avoid liquidation.
-
-- 🔒 **Security Best Practices:**  
-  - CEI pattern (Checks-Effects-Interactions).  
-  - Reentrancy protection with `ReentrancyGuard`.  
-  - Price feed safety checks for stale oracle data.
-
+    
 ---
 
-## 🧪 Developer Quickstart
+## Developer Quickstart
 
 ```bash
 # Clone the repo
