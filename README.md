@@ -13,7 +13,7 @@ Think of it as a stripped-down, educational version of **DAI** — but with only
 
 ---
 
-## 🌍 What This Project Is About
+## What This Project Is About
 
 This project started as a side experiment to deeply understand how stablecoins actually work at the smart contract level.  
 The goal was to answer a simple question:  
@@ -36,7 +36,7 @@ It’s all automated. No admin keys. No manual intervention. Just code.
 
 ---
 
-## ⚙️ Technical Breakdown
+## Technical Breakdown
 
 Here’s what’s happening behind the scenes:
 
@@ -66,22 +66,28 @@ forge install
 # Build & test
 forge build
 forge test -vvvv
-
-Deploy to anvil Testnet
+```
+**Deploy to anvil Testnet**
+```bash
 make deploy
-
-Deploy to Sepolia Testnet
+```
+**Deploy to Sepolia Testnet**
 Add your keys to a .env file:
+```bash
 SEPOLIA_RPC_URL="https://eth-sepolia.g.alchemy.com/v2/YOUR_KEY"
 PRIVATE_KEY="0xYOUR_PRIVATE_KEY"
 ETHERSCAN_API_KEY="YOUR_ETHERSCAN_KEY"
+```
 
+```bash
 make deploy ARGS="--network sepolia"
+```
 
-🛠️ Interacting With the Protocol
+**Interacting With the Protocol**
 
 Here are a few examples using cast:
 
+```bash
 # Check a user’s health factor
 cast call <DSC_ENGINE_ADDRESS> "getHealthFactor(address)(uint256)" <WALLET>
 
@@ -90,3 +96,4 @@ cast call <DSC_ENGINE_ADDRESS> "getTokenPriceInUsd(address,uint256)(uint256)" <T
 
 # Convert USD value to collateral tokens
 cast call <DSC_ENGINE_ADDRESS> "getTokenAmountFromUsd(address,uint256)(uint256)" <TOKEN> <USD_AMOUNT_1e18>
+```
